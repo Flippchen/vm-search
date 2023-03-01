@@ -1,8 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
 <form method="get">
   <label for="search">Search:</label>
   <input type="text" name="search" value="{{ search_term }}" placeholder="Search...">
   <button type="submit">Go</button>
 </form>
+{% if search_term != "" %}
+    <caption>{{ len }} results found</caption>
+    <br>
+    <caption>Search results for "{{ search_term }}"</caption>
+{% else %}
+    <caption>Enter a search term to begin</caption>
+
+{% endif %}
 <table>
   <thead>
     <tr>
@@ -21,3 +31,4 @@
     {% endfor %}
   </tbody>
 </table>
+{% endblock %}
