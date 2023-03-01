@@ -7,22 +7,30 @@ from django.http import HttpResponse
 import csv
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-@login_required
+
+# @login_required
 def csv_to_table(request):
     data = []
-    search_term = request.GET.get('search', '').lower()
-    with open('data.csv', 'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if search_term in ''.join(row).lower():
+    search_term = request.GET.get('search', None)
+
+    if search_term:
+        search_terms: list = search_term.lower().split(",")
+        reader = settings.READER
+        for row in reader[1:]:
+            if all(search_term in ''.join(row).lower() for search_term in search_terms):
                 data.append(row)
-    headers = data[0]
-    rows = data[1:]
-    return render(request, 'table2.html', {'headers': headers, 'rows': rows, 'search_term': search_term})
+        headers = reader[0]
+        rows = data
+        length = len(rows)
+        return render(request, 'table2.html', {'headers': headers, 'rows': rows, 'search_term': search_term, 'len': length})
+    else:
+        return render(request, 'table2.html', {'search_term': search_term})
 
 
 def ldap_login(request):
