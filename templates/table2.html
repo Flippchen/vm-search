@@ -5,15 +5,16 @@
   <input type="text" name="search" value="{{ search_term }}" placeholder="Search...">
   <button type="submit">Go</button>
 </form>
-{% if search_term != "" %}
-    <caption>{{ len }} results found</caption>
     <br>
-    <caption>Search results for "{{ search_term }}"</caption>
+{% if search_term%}
+    <p class="Caption">Search results for "{{ search_term }}"</p>
+    <p class="Caption2">{{ len }} results found</p>
 {% else %}
-    <caption>Enter a search term to begin</caption>
-
+    <p class="Caption">Enter a search term to begin</p>
+    <br>
 {% endif %}
-<table>
+    <br>
+<table class="Table">
   <thead>
     <tr>
       {% for header in headers %}
@@ -31,4 +32,9 @@
     {% endfor %}
   </tbody>
 </table>
+{% endblock %}
+
+{% block head %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
 {% endblock %}
