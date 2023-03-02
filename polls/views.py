@@ -14,7 +14,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-# @login_required
+#@login_required
 def csv_to_table(request):
     data = []
     search_term = request.GET.get('search', None)
@@ -30,7 +30,7 @@ def csv_to_table(request):
         length = len(rows)
         return render(request, 'table2.html', {'headers': headers, 'rows': rows, 'search_term': search_term, 'len': length})
     else:
-        return render(request, 'table2.html', {'search_term': search_term})
+        return render(request, 'table2.html',)
 
 
 def ldap_login(request):
