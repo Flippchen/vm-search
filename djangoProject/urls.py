@@ -17,9 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
-import polls.views
+import vm.views
 
 urlpatterns = [
-    path('', include('polls.urls')),
+    path('', include('vm.urls')),
     path('admin/', admin.site.urls),
 ]
