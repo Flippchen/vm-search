@@ -6,6 +6,7 @@ form {
 }
 
 label {
+  margin-top: 3px;
   font-weight: bold;
   margin-right: 10px;
 }
@@ -23,10 +24,12 @@ button[type="submit"] {
   border-radius: 5px;
   width: 6%;
   border: none;
-  background-color: #4CAF50;
+  background-color: #132f68;
   color: #fff;
 }
-
+button[type="submit"]:hover {
+  background-color: #1b4796;
+}
 /* Style the table */
 .Table {
   border-collapse: collapse;
@@ -62,3 +65,15 @@ br {
   margin-bottom: 20px;
 }
 
+
+.logout-button button {
+  position: absolute;
+    top: 30px;
+    right: 30px;
+  background-color: #d00b20;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import ldap
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 from django.http import HttpResponse
@@ -14,7 +14,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 
-#@login_required
+# @login_required
 def csv_to_table(request):
     data = []
     search_term = request.GET.get('search', None)
@@ -28,9 +28,10 @@ def csv_to_table(request):
         headers = reader[0]
         rows = data
         length = len(rows)
-        return render(request, 'table2.html', {'headers': headers, 'rows': rows, 'search_term': search_term, 'len': length})
+        return render(request, 'table2.html',
+                      {'headers': headers, 'rows': rows, 'search_term': search_term, 'len': length})
     else:
-        return render(request, 'table2.html',)
+        return render(request, 'table2.html', )
 
 
 def ldap_login(request):
@@ -57,3 +58,8 @@ def ldap_login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
