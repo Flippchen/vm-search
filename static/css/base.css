@@ -8,8 +8,10 @@ body {
 h1 {
   font-size: 2.5em;
   color: #333;
-  margin-top: 0;
+  margin-left: 12%;
+  display: inline-block;
   text-align: center;
+  vertical-align: middle;
 }
 
 /* Styles for the search form */
@@ -61,4 +63,10 @@ h1 {
 .result p {
   font-size: 1.2em;
   margin-top: 10px;
+}
+img {
+  width: 30%; /* increase the width by 50% */
+  height: 30%; /* increase the height by 50% */
+  display: inline-block;
+  vertical-align: middle;
 }
