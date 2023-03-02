@@ -1,0 +1,64 @@
+/* Style the form */
+form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+input[type="text"] {
+  width: 20%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 20px; /* add margin to the right of the input */
+}
+
+button[type="submit"] {
+  padding-left: 10px;
+  border-radius: 5px;
+  width: 6%;
+  border: none;
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+/* Style the table */
+.Table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.Table th, .Table td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.Table th {
+  background-color: #f2f2f2;
+  color: #444;
+  font-weight: bold;
+}
+.Caption {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.Caption2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+br {
+  margin-bottom: 20px;
+}
+
