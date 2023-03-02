@@ -1,8 +1,18 @@
-{% block content %}
-  <h1>Login</h1>
+{% load static %}
+<head>
+  <title>Login</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+</head>
+<img src="{% static 'logo2.webp' %}" alt="logo">
+<div>
+  {% block content %}
+
   <form method="post">
+  <h3>Login</h3>
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Login</button>
   </form>
 {% endblock %}
+</div>

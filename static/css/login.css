@@ -1,0 +1,59 @@
+/* Style the container */
+body {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+/* Style the form container */
+form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+/* Style the form header */
+h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Style the form inputs */
+input[type="text"],
+input[type="password"] {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #f2f2f2;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Style the form submit button */
+button[type="submit"] {
+  background-color: #132f68;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* On hover, change the submit button background color */
+button[type="submit"]:hover {
+  background-color: #1b4796;
+}
+img {
+  max-width: 50%;
+  margin: 10%;
+  width: 40%;
+  height: 30%;
+  display: inline-block;
+}
