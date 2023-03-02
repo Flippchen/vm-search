@@ -77,3 +77,6 @@ br {
   border-radius: 5px;
   cursor: pointer;
 }
+.logout-button button[type="submit"]:hover{
+  background-color: #f14659;
+}
