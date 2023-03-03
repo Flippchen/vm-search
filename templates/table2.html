@@ -25,15 +25,25 @@
   <thead>
     <tr>
       {% for header in headers %}
-        <th>{{ header }}</th>
+          {% if not forloop.last %}
+              <th>{{ header }}</th>
+              {% else %}
+          {% endif %}
       {% endfor %}
     </tr>
   </thead>
   <tbody>
     {% for row in rows %}
-      <tr>
+      <tr style="background-color:{{ row|last }}">
         {% for cell in row %}
-          <td>{{ cell }}</td>
+            {% if not forloop.last %}
+                {% if forloop.counter == 2 %}
+        <td><a href="https://{{ cell }}" target="_blank">{{ cell }}</a></td>
+      {% else %}
+        <td>{{ cell }}</td>
+      {% endif %}
+                {% else %}
+            {% endif %}
         {% endfor %}
       </tr>
     {% endfor %}

@@ -124,11 +124,32 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# def load_csv():
+#    with open('data3.csv', 'r') as f:
+#        file = csv.reader(f, delimiter=';')
+#        my_data = [row for row in file]
+#    return my_data
+
+import random
+
+r = lambda: random.randint(100, 255)
+
 
 def load_csv():
     with open('data3.csv', 'r') as f:
         file = csv.reader(f, delimiter=';')
-        my_data = [row for row in file]
+        my_data = []
+        for row in file:
+            if row[5] == '':
+                continue
+            ips = row[5].split(',')  # Split IP addresses in the row
+            color = '#%02X%02X%02X' % (r(), r(), r())
+            row.append(color)
+            for ip in ips:
+                new_row = row.copy()  # Create a new row
+                # Replace the IP-Address column value with one IP address
+                new_row[5] = ip.strip()
+                my_data.append(new_row)  # Append the new row to the list
     return my_data
 
 
