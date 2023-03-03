@@ -11,7 +11,7 @@ from django.conf import settings
 
 
 def index(request):
-    return HttpResponse("Please login")
+    return redirect('/csv')
 
 
 # @login_required
@@ -36,7 +36,7 @@ def csv_to_table(request):
 
 def ldap_login(request):
     if request.method == 'POST':
-        return redirect(reverse('csv_to_table'))
+        return redirect('csv_to_table')
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
