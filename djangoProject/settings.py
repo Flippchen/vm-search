@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import csv
 import os
 from pathlib import Path
+import random
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,9 +131,8 @@ STATICFILES_DIRS = (
 #        my_data = [row for row in file]
 #    return my_data
 
-import random
 
-r = lambda: random.randint(100, 255)
+r = lambda: random.randint(150, 255)
 
 
 def load_csv():
@@ -143,8 +143,13 @@ def load_csv():
             if row[5] == '':
                 continue
             ips = row[5].split(',')  # Split IP addresses in the row
-            color = '#%02X%02X%02X' % (r(), r(), r())
-            row.append(color)
+            # color = '#%02X%02X%02X' % (r(), r(), r())
+            if len(ips) > 1:
+                color = '#%02X%02X%02XF' % (r(), r(), r())
+                row.append(color)
+            else:
+                color = '#%02X%02X%02XT' % (r(), r(), r())
+                row.append(color)
             for ip in ips:
                 new_row = row.copy()  # Create a new row
                 # Replace the IP-Address column value with one IP address
