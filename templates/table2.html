@@ -1,54 +1,64 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="logout-button">
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+    <form method="get">
+        <label for="search">Search:</label>
+        <input type="text" name="search" value="{{ search_term }}" placeholder="Name,IP-Address">
+        <button type="submit">Go</button>
+        <button type="button" class="help-btn" title="Multiple search terms can be entered separated by commas">?
+        </button>
     </form>
-</div>
-<form method="get">
-  <label for="search">Search:</label>
-  <input type="text" name="search" value="{{ search_term }}" placeholder="Name,IP-Adress">
-  <button type="submit">Go</button>
-<button type="button" class="help-btn" title="Multiple search terms can be entered separated by commas">?</button>
-</form>
     <br>
-{% if search_term%}
-    <p class="Caption">Search results for "{{ search_term }}"</p>
-    <p class="Caption2">{{ len }} results found</p>
-{% else %}
-    <p class="Caption">Enter a search term to begin</p>
+    {% if search_term %}
+        <p class="Caption">Search results for "{{ search_term }}"</p>
+        <p class="Caption2">{{ len }} results found</p>
+    {% else %}
+        <p class="Caption">Enter a search term to begin</p>
+        <br>
+    {% endif %}
     <br>
-{% endif %}
-    <br>
-<table class="Table">
-  <thead>
-    <tr>
-      {% for header in headers %}
-          {% if not forloop.last %}
-              <th>{{ header }}</th>
-              {% else %}
-          {% endif %}
-      {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for row in rows %}
-      <tr style="background-color:{{ row|last }}">
-        {% for cell in row %}
-            {% if not forloop.last %}
-                {% if forloop.counter == 2 %}
-        <td><a href="https://{{ cell }}" target="_blank">{{ cell }}</a></td>
-      {% else %}
-        <td>{{ cell }}</td>
-      {% endif %}
+    <table class="Table">
+        <thead>
+        <tr>
+            {% for header in headers %}
+                {% if not forloop.last %}
+                    <th>{{ header }}</th>
                 {% else %}
-            {% endif %}
+                {% endif %}
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+            <tr style="background-color:{{ row|last|slice:":-1" }}">
+                {% for cell in row %}
+                    {% if not forloop.last %}
+                        {% if forloop.counter == 2 %}
+                            <td><a href="https://{{ cell }}" target="_blank">{{ cell }}</a></td>
+                        {% else %}
+                            {% if forloop.counter0 == 5 %}
+                                {% if row|last|last != "T" %}
+                                    <td style="color:orangered">{{ cell }}</td>
+                                {% else %}
+                                    <td>{{ cell }}</td>
+                                {% endif %}
+
+                            {% else %}
+                                <td>{{ cell }}</td>
+                            {% endif %}
+                        {% endif %}
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+            </tr>
         {% endfor %}
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
+        </tbody>
+    </table>
 {% endblock %}
 
 {% block head %}
