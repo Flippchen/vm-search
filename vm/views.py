@@ -9,6 +9,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
+LDAP_SERVER = 'ldap://example.com'
+
 
 def index(request):
     return redirect('/csv')
@@ -36,22 +38,19 @@ def csv_to_table(request):
 
 def ldap_login(request):
     if request.method == 'POST':
-        return redirect('csv_to_table')
+        # return redirect('csv_to_table')
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            ldap_server = 'ldap://example.com'
             ldap_dn = 'uid={},ou=users,dc=example,dc=com'.format(username)
             try:
-                # ldap_conn = ldap.initialize(ldap_server)
-                # ldap_conn.simple_bind_s(ldap_dn, password)
-                a = 1
+                ldap_conn = ldap.initialize(LDAP_SERVER)
+                ldap_conn.simple_bind_s(ldap_dn, password)
             except ldap.INVALID_CREDENTIALS:
                 form.add_error(None, 'Invalid username or password')
             else:
                 user = authenticate(request, username=username, password=password)
-                user = a
                 if user is not None:
                     login(request, user)
                     return redirect(reverse('csv'))
