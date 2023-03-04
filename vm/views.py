@@ -2,14 +2,13 @@ from django.shortcuts import render, redirect
 import ldap
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-# Create your views here.
 from django.http import HttpResponse
 import csv
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib.auth.models import User
 
-LDAP_SERVER = 'ldap://example.com'
 
 
 def index(request):
@@ -38,22 +37,41 @@ def csv_to_table(request):
 
 def ldap_login(request):
     if request.method == 'POST':
-        # return redirect('csv_to_table')
         form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            ldap_dn = 'uid={},ou=users,dc=example,dc=com'.format(username)
+        username = request.POST["username"]
+        password = request.POST["password"]
+
+        try:
+            conn = ldap.initialize(settings.LDAP_SERVER)
+            conn.simple_bind_s("{}@ad.Test.com".format(username), password)
+        except ldap.INVALID_CREDENTIALS:
+            form.add_error(None, "Invalid username or password")
+            return render(request, 'login.html', {'form': form})
+
+        search_base = "OU=Test,dc=ad,dc=Test,dc=com"
+        search_filter = "(sAMAccountName={})".format(username)
+
+        results = conn.search_s(search_base, ldap.SCOPE_SUBTREE, search_filter)
+        if len(results) == 0:
+            form.add_error(None, "Invalid Group")
+            return render(request, 'login.html', {'form': form})
+        else:
             try:
-                ldap_conn = ldap.initialize(LDAP_SERVER)
-                ldap_conn.simple_bind_s(ldap_dn, password)
-            except ldap.INVALID_CREDENTIALS:
-                form.add_error(None, 'Invalid username or password')
-            else:
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request, user)
-                    return redirect(reverse('csv'))
+                groups = results[0][1]["memberOf"]
+                if any("OGU Platform Services".encode("utf-8") in item for item in groups):
+                    try:
+                        user = User.objects.get(username=username)
+                    except:
+                        user = User.objects.create_user(username=username, password="123")
+                        user.save()
+                    user = authenticate(username=username, password="123")
+                    if user is not None:
+                        login(request, user)
+                    return redirect(reverse('csv_to_table'))
+            except:
+                form.add_error(None, "Invalid Group")
+                return render(request, 'login.html', {'form': form})
+
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
