@@ -160,3 +160,4 @@ def load_csv():
 
 
 READER = load_csv()
+LDAP_SERVER = 'ldap://example.com'
