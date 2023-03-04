@@ -14,7 +14,7 @@ def index(request):
     return redirect('/csv')
 
 
-# @login_required
+@login_required
 def csv_to_table(request):
     data = []
     search_term = request.GET.get('search', None)
@@ -60,7 +60,7 @@ def ldap_login(request):
         else:
             try:
                 groups = results[0][1]["memberOf"]
-                if any("OGU Platform Services".encode("utf-8") in item for item in groups):
+                if any("TEST GROUP".encode("utf-8") in item for item in groups):
                     try:
                         user = User.objects.get(username=username)
                     except:
