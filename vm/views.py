@@ -10,7 +10,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 
-
 def index(request):
     return redirect('/csv')
 
@@ -36,7 +35,10 @@ def csv_to_table(request):
 
 
 def ldap_login(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form': form})
+    elif request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         username = request.POST["username"]
         password = request.POST["password"]
@@ -71,10 +73,8 @@ def ldap_login(request):
             except:
                 form.add_error(None, "Invalid Group")
                 return render(request, 'login.html', {'form': form})
-
     else:
-        form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+        return HttpResponse("Invalid request")
 
 
 def logout_view(request):
