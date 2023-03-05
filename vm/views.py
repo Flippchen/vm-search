@@ -22,7 +22,7 @@ def csv_to_table(request):
         search_terms: list = search_term.lower().split(",")
         reader = settings.READER
         for row in reader[1:]:
-            if all(search_term in ''.join(row).lower() for search_term in search_terms):
+            if all(search_term in ''.join(row[:len(row) - 1]).lower() for search_term in search_terms):
                 data.append(row)
         headers = reader[0]
         rows = data

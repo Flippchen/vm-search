@@ -137,7 +137,6 @@ def load_csv():
             if row[5] == '':
                 continue
             ips = row[5].split(',')  # Split IP addresses in the row
-            # color = '#%02X%02X%02X' % (r(), r(), r())
             if len(ips) > 1:
                 color = '#%02X%02X%02XF' % (r(), r(), r())
                 row.append(color)
