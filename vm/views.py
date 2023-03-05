@@ -27,10 +27,10 @@ def csv_to_table(request):
         headers = reader[0]
         rows = data
         length = len(rows)
-        return render(request, 'table2.html',
+        return render(request, 'table.html',
                       {'headers': headers, 'rows': rows, 'search_term': search_term, 'len': length})
     else:
-        return render(request, 'table2.html', )
+        return render(request, 'table.html', )
 
 
 def ldap_login(request):
