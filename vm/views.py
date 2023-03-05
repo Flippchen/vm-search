@@ -3,7 +3,6 @@ import ldap
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
-import csv
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
