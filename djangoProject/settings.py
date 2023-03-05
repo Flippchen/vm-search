@@ -126,13 +126,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-# def load_csv():
-#    with open('data3.csv', 'r') as f:
-#        file = csv.reader(f, delimiter=';')
-#        my_data = [row for row in file]
-#    return my_data
-
-
 r = lambda: random.randint(150, 255)
 
 
