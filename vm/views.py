@@ -45,6 +45,8 @@ def ldap_login(request):
         # Authenticate against ldap server
         try:
             conn = ldap.initialize(settings.LDAP_SERVER)
+            if "@" in username:
+                username = username.split("@")[0]
             conn.simple_bind_s("{}@ad.Test.com".format(username), password)
         # If authentication fails, return an 'invalid login' error message.
         except ldap.INVALID_CREDENTIALS:
